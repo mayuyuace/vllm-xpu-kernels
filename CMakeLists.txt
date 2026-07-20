@@ -69,7 +69,7 @@ option(BASIC_KERNELS_ENABLED "Build basic kernels (_C extension)" ON)
 option(FA2_KERNELS_ENABLED
        "Build Flash Attention 2 kernels (_vllm_fa2_C extension)" ON)
 option(MOE_KERNELS_ENABLED
-       "Build MoE kernels (_moe_C extension + grouped_gemm TLA)" ON)
+       "Build MoE kernels (_moe_C extension + grouped_gemm + fused_moe TLA)" ON)
 option(GDN_KERNELS_ENABLED "Build GDN attention kernels (gdn_attn TLA)" ON)
 option(MQA_LOGITS_KERNELS_ENABLED "Build MQA logits kernels" ON)
 option(MHC_KERNELS_ENABLED
@@ -636,6 +636,7 @@ if(XPU_SPECIFIC_KERNELS_ENABLED)
   if(MOE_KERNELS_ENABLED)
     list(APPEND VLLM_EXT_XPU_SRC
          "csrc/xpu/grouped_gemm/grouped_gemm_interface.cpp")
+    list(APPEND VLLM_EXT_XPU_SRC "csrc/xpu/fused_moe/fused_moe_interface.cpp")
   endif()
   if(GDN_KERNELS_ENABLED)
     list(APPEND VLLM_EXT_XPU_SRC "csrc/xpu/gdn_attn/gdn_attn_interface.cpp")

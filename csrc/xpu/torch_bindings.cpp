@@ -250,6 +250,16 @@ TORCH_LIBRARY_EXPAND(TORCH_EXTENSION_NAME, xpu_ops) {
       "deepseek_fused_indexer_q_rope_mxfp4",
       torch::kXPU,
       &deepseek_fused_indexer_q_rope_mxfp4);
+
+  xpu_ops.def(
+      "fused_moe_interface(Tensor output, Tensor hidden_states, "
+      "Tensor w13, Tensor? w13_scale, Tensor? w13_bias, Tensor w2, "
+      "Tensor? w2_scale, Tensor? w2_bias, Tensor topk_ids, Tensor "
+      "topk_weights, "
+      "Tensor? expert_map, int total_experts_num, int local_experts_num, "
+      "int inter_size, int hidden_size, str activation, float "
+      "gemm1_clamp_limit) -> ()");
+  xpu_ops.impl("fused_moe_interface", torch::kXPU, &fused_moe_interface);
 }
 
 REGISTER_EXTENSION(TORCH_EXTENSION_NAME)
